@@ -5,9 +5,15 @@
       {{ if not .HasChildren }}
 
         <li id="{{ .Identifier }}">
-          {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
-          <a href="{{ .URL }}">{{ .Name }}</a>
-          {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+          {{ if .Params.Download }}
+            {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+            <a download="{{ .Params.Download }}" href="{{ .URL }}">{{ .Name }}</a>
+            {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+          {{ else }}
+            {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+            <a href="{{ .URL }}">{{ .Name }}</a>
+            {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+          {{ end }}
         </li>
 
       {{ else }}
@@ -22,11 +28,17 @@
           <ul class="menu__sub-inner-more hidden">
 
             {{ range .Children }}
-              <li id="{{ .Identifier }}">
+            <li id="{{ .Identifier }}">
+              {{ if isset .Params "download" }}
+                {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+                <a download="{{ .Params.Download }}" href="{{ .URL }}">{{ .Name }}</a>
+                {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+              {{ else }}
                 {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
                 <a href="{{ .URL }}">{{ .Name }}</a>
                 {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
-              </li>
+              {{ end }}
+            </li>
             {{ end }}
 
           </ul>
@@ -57,11 +69,17 @@
 
       {{ if not .HasChildren }}
 
-        <li id="{{ .Identifier }}">
-          {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
-          <a href="{{ .URL }}">{{ .Name }}</a>
-          {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
-        </li>
+    <li id="{{ .Identifier }}">
+      {{ if isset .Params "download" }}
+        {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+        <a download="{{ .Params.Download }}" href="{{ .URL }}">{{ .Name }}</a>
+        {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+      {{ else }}
+        {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+        <a href="{{ .URL }}">{{ .Name }}</a>
+        {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+      {{ end }}
+    </li>
 
       {{ else }}
 
@@ -74,11 +92,17 @@
 
           <ul class="menu__mobile-sub-inner">
             {{ range .Children }}
-              <li id="{{ .Identifier }}">
+            <li id="{{ .Identifier }}">
+              {{ if isset .Params "download" }}
+                {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+                <a download="{{ .Params.Download }}" href="{{ .URL }}">{{ .Name }}</a>
+                {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+              {{ else }}
                 {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
                 <a href="{{ .URL }}">{{ .Name }}</a>
                 {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
-              </li>
+              {{ end }}
+            </li>
             {{ end }}
           </ul>
         </ul>
