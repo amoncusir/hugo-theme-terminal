@@ -23,7 +23,9 @@
 
             {{ range .Children }}
               <li id="{{ .Identifier }}">
+                {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
                 <a href="{{ .URL }}">{{ .Name }}</a>
+                {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
               </li>
             {{ end }}
 
@@ -54,11 +56,33 @@
     {{ range $.Site.Menus.main }}
 
       {{ if not .HasChildren }}
+
         <li id="{{ .Identifier }}">
           {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
           <a href="{{ .URL }}">{{ .Name }}</a>
           {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
         </li>
+
+      {{ else }}
+
+        <ul id="{{ .Identifier }}" class="menu__mobile-sub">
+          <li class="menu__mobile-sub-title">
+            {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+            {{ .Name }}
+            {{ if .Post }}{{ .Post | safeHTML }}{{end}}
+          </li>
+
+          <ul class="menu__mobile-sub-inner">
+            {{ range .Children }}
+              <li id="{{ .Identifier }}">
+                {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+                <a href="{{ .URL }}">{{ .Name }}</a>
+                {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+              </li>
+            {{ end }}
+          </ul>
+        </ul>
+
       {{ end }}
     {{ end }}
 

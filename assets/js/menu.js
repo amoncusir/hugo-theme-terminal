@@ -7,8 +7,6 @@
 
   const HIDDEN_CLASS = 'hidden';
 
-  const container = document.querySelector(".container");
-
   const menu = document.querySelector(".menu");
   const mobileMenuTrigger = document.querySelector(".menu-trigger");
 
@@ -54,7 +52,9 @@
     const trigger = menuNode.querySelector('.menu__sub-inner-more-trigger');
     const menuContainer = menuNode.querySelector('.menu__sub-inner-more');
 
-    trigger.addEventListener('click', () => {
+    trigger.addEventListener('click', (e) => {
+
+      e.stopPropagation();
 
       const isMenuHidden = menuContainer.classList.contains(HIDDEN_CLASS);
 
@@ -69,19 +69,10 @@
 
   // Set Up ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-  // console.log(desktopSubMenus);
-
   applyIterations(desktopSubMenus, i => setUpMenuTrigger(i));
-
-  // for (let desktopSubMenuNode of desktopSubMenus)
-  // {
-  //   // console.log(desktopSubMenuNode);
-  //   setUpMenuTrigger(desktopSubMenuNode);
-  // }
 
   menu && menu.addEventListener("click", e => e.stopPropagation());
   applyIterations(menuMore, i => i.addEventListener("click", e => e.stopPropagation()));
-  // menuMore && menuMore
 
   handleMenuClasses();
 
