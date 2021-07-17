@@ -1,31 +1,39 @@
 <nav class="menu">
   <ul class="menu__inner menu__inner--desktop">
-    {{ if or $.Site.Params.showMenuItems ( eq .Site.Params.showMenuItems 0 ) }}
-      {{ range first $.Site.Params.showMenuItems $.Site.Menus.main }}
-        {{ if not .HasChildren }}
-          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-        {{ end }}
-      {{ end }}
-      {{ if gt (len $.Site.Menus.main) $.Site.Params.showMenuItems }}
-        <ul class="menu__sub-inner">
-          <li class="menu__sub-inner-more-trigger">{{ $.Site.Params.MenuMore }} ▾</li>
+
+    {{ range $.Site.Menus.main }}
+      {{ if not .HasChildren }}
+
+        <li id="{{ .Identifier }}">
+          {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+          <a href="{{ .URL }}">{{ .Name }}</a>
+          {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+        </li>
+
+      {{ else }}
+
+        <ul id="{{ .Identifier }}" class="menu__sub-inner">
+          <li class="menu__sub-inner-more-trigger">
+            {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+            {{ .Name }}
+            {{ if .Post }}{{ .Post | safeHTML }}{{else}} ▾{{ end }}
+          </li>
 
           <ul class="menu__sub-inner-more hidden">
-            {{ range last (sub (len $.Site.Menus.main) $.Site.Params.showMenuItems) $.Site.Menus.main }}
-              {{ if not .HasChildren }}
-                <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-              {{ end }}
+
+            {{ range .Children }}
+              <li id="{{ .Identifier }}">
+                <a href="{{ .URL }}">{{ .Name }}</a>
+              </li>
             {{ end }}
+
           </ul>
         </ul>
-      {{ end }}
-    {{ else }}
-      {{ range $.Site.Menus.main }}
-        {{ if not .HasChildren }}
-          <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-        {{ end }}
+
       {{ end }}
     {{ end }}
+
+    <!--  Language Selector for Desktop  -->
 
     {{ if and $.Site.Params.showLanguageSelector (len $.Site.Home.AllTranslations) }}
     <div class="spacer"></div>
@@ -35,7 +43,7 @@
       </ul>
       <ul class="language-selector__more hidden">
         {{ range $.Site.Home.AllTranslations }}
-        <li><a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></li>
+          <li><a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></li>
         {{ end }}
       </ul>
     </ul>
@@ -44,12 +52,18 @@
 
   <ul class="menu__inner menu__inner--mobile">
     {{ range $.Site.Menus.main }}
+
       {{ if not .HasChildren }}
-        <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        <li id="{{ .Identifier }}">
+          {{ if .Pre }}{{ .Pre | safeHTML }}{{ end }}
+          <a href="{{ .URL }}">{{ .Name }}</a>
+          {{ if .Post }}{{ .Post | safeHTML }}{{ end }}
+        </li>
       {{ end }}
     {{ end }}
+
     {{ if and $.Site.Params.showLanguageSelector (len $.Site.Home.AllTranslations) }}
-    <hr />
+    <hr/>
       {{ range $.Site.Home.AllTranslations }}
         <li>
           <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>

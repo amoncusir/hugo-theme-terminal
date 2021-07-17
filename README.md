@@ -135,8 +135,8 @@ paginate = 5
   # set a custom favicon (default is a `themeColor` square)
   # favicon = "favicon.ico"
 
-  # set post to show the last updated
-  # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
+  # set blog to show the last updated
+  # If you use git, you can set `enableGitInfo` to `true` and then blog will automatically get the last updated
   showLastUpdated = false
   # Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author
   # updatedDatePrefix = "Updated"
